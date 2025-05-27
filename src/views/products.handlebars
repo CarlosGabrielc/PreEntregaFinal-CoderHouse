@@ -1,0 +1,32 @@
+<!-- views/products.handlebars -->
+<h1>Lista de Productos</h1>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  {{#each products}}
+    <div style="border: 1px solid #ccc; padding: 10px; width: 200px;">
+      <h3>{{this.title}}</h3>
+      <p>Precio: ${{this.price}}</p>
+      <p>Categoría: {{this.category}}</p>
+      <p>Disponible: {{#if this.status}}Sí{{else}}No{{/if}}</p>
+
+      <!-- Enlace a detalles del producto -->
+      <a href="/products/{{this._id}}">Ver detalles</a><br>
+
+      <!-- Botón para agregar directo al carrito (solo para test) -->
+      <form action="/api/carts/CLAVE_CART_ID/products/{{this._id}}" method="POST">
+        <button type="submit">Agregar al carrito</button>
+      </form>
+    </div>
+  {{/each}}
+</div>
+
+<!-- Paginación -->
+<div style="margin-top: 20px;">
+  {{#if hasPrevPage}}
+    <a href="{{prevLink}}">⟵ Anterior</a>
+  {{/if}}
+  <span>Página {{page}} de {{totalPages}}</span>
+  {{#if hasNextPage}}
+    <a href="{{nextLink}}">Siguiente ⟶</a>
+  {{/if}}
+</div>
